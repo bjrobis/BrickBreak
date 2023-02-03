@@ -2,6 +2,11 @@ class Level2 extends Phaser.Scene {
     constructor() {
         super({ key: 'Level2'})
     }
+
+//*****load score from previous level */
+init(data) {
+    gameState.score = data.score;
+}
 //******PRELOAD STATE */
      preload() {
     //preload all the assets
@@ -155,7 +160,7 @@ class Level2 extends Phaser.Scene {
     gameState.scoreText = this.add.text(
         20, //x cordinates
         660, //y cordinates
-        `Score: 0`,
+        `Score: ${gameState.score}`,
         {
             fontFamily: 'Monaco, Courier, monospace',
             fontSize: '20px',
@@ -209,7 +214,7 @@ class Level2 extends Phaser.Scene {
     } else if (isWon()) {
         gameState.gameStarted = false;
         this.scene.stop('Level2');
-        this.scene.start('Level3');
+        this.scene.start('Level3', {score: gameState.score});
     } else {
         //Logic for keys during normal gameplay
         

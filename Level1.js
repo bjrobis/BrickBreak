@@ -186,7 +186,7 @@ class Level1 extends Phaser.Scene {
     } else if (isWon()) {
         gameState.gameStarted = false;
         this.scene.stop('Level1');
-        this.scene.start('Level2');
+        this.scene.start('Level2', {score: gameState.score});
     } else {
         //Logic for keys during normal gameplay
         
