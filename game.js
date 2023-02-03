@@ -22,7 +22,7 @@ const config = {
             gravity: false //our game doesn't need gravity
         }
     },
-    scene: [Level1, Level2, Level3],
+    scene: [Level1, Level2, Level3, Level4, Level5],
 };
 
 //Create the game instance

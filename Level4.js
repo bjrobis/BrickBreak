@@ -1,12 +1,12 @@
-class Level3 extends Phaser.Scene {
+class Level4 extends Phaser.Scene {
     constructor() {
-        super({ key: 'Level3'})
+        super({ key: 'Level4'})
     }
 
 //*****load score from previous level */
-init(data) {
-    gameState.score = data.score;
-}
+    init(data) {
+        gameState.score = data.score;
+    }
 //******PRELOAD STATE */
      preload() {
     //preload all the assets
@@ -37,56 +37,56 @@ init(data) {
 
     gameState.blueBricks = this.physics.add.group({
         key: 'brick1',
-        repeat: 5, //how many times to repeat sprite
+        repeat: 4, //how many times to repeat sprite
         immovable: true, //tells engine to not let ball lose velocity when hitting brick
         setXY: {
-            x: 162,//x cordinate of first sprite
+            x: 87,//x cordinate of first sprite
             y: 35, //y cordinate of first sprite
-            stepX: 75 //length in pixels between repeated sprites on x-axis
+            stepX: 150 //length in pixels between repeated sprites on x-axis
         }
     });
 
     gameState.yellowBricks = this.physics.add.group({
         key: 'brick4',
-        repeat: 5, //how many times to repeat sprite
+        repeat: 4, //how many times to repeat sprite
         immovable: true, //tells engine to not let ball lose velocity when hitting brick
         setXY: {
-            x: 237,//x cordinate of first sprite
+            x: 162,//x cordinate of first sprite
             y: 75, //y cordinate of first sprite
-            stepX: 75 //length in pixels between repeated sprites on x-axis
+            stepX: 150 //length in pixels between repeated sprites on x-axis
         }
     });
 
     gameState.redBricks = this.physics.add.group({
         key: 'brick2',
-        repeat: 5, //how many times to repeat sprite
+        repeat: 4, //how many times to repeat sprite
         immovable: true, //tells engine to not let ball lose velocity when hitting brick
         setXY: {
-            x: 312,//x cordinate of first sprite
+            x: 87,//x cordinate of first sprite
             y: 115, //y cordinate of first sprite
-            stepX: 75 //length in pixels between repeated sprites on x-axis
+            stepX: 150 //length in pixels between repeated sprites on x-axis
         }
     });
 
     gameState.greenBricks = this.physics.add.group({
         key: 'brick3',
-        repeat: 5, //how many times to repeat sprite
+        repeat: 4, //how many times to repeat sprite
         immovable: true, //tells engine to not let ball lose velocity when hitting brick
         setXY: {
-            x: 237,//x cordinate of first sprite
+            x: 162,//x cordinate of first sprite
             y: 155, //y cordinate of first sprite
-            stepX: 75 //length in pixels between repeated sprites on x-axis
+            stepX: 150 //length in pixels between repeated sprites on x-axis
         }
     });
 
     gameState.purpleBricks = this.physics.add.group({
         key: 'brick5',
-        repeat: 5, //how many times to repeat sprite
+        repeat: 4, //how many times to repeat sprite
         immovable: true, //tells engine to not let ball lose velocity when hitting brick
         setXY: {
-            x: 162,//x cordinate of first sprite
+            x: 87,//x cordinate of first sprite
             y: 195, //y cordinate of first sprite
-            stepX: 75 //length in pixels between repeated sprites on x-axis
+            stepX: 150 //length in pixels between repeated sprites on x-axis
         }
     });
 
@@ -105,24 +105,24 @@ init(data) {
     const hitBrick = (ball, brick) => { //accepts the previous 2 arguments used in collider method
         brick.disableBody(true, true); //make it inactive and hide it from the screen
         
-        gameState.score += 3;
+        gameState.score += 4;
         gameState.scoreText.setText((`Score: ${gameState.score}`));
 
         if (gameState.ball.body.velocity.x == 0) { //if x velocity of ball is 0 then we give the ball a velocity depending on the value of the random number
             let randNum = Math.random();
             if (randNum >= 0.5) {
-                gameState.ball.body.setVelocityX(300);
+                gameState.ball.body.setVelocityX(150);
             } else {
-                gameState.ball.body.setVelocityX(-300);
+                gameState.ball.body.setVelocityX(-150);
             }
         } 
     }
 
     const hitPlayer = () => {
         //increase the velocity of the ball after it bounces
-        gameState.ball.setVelocityY(gameState.ball.body.velocity.y -15);
+        gameState.ball.setVelocityY(gameState.ball.body.velocity.y - 30);
     
-        let newXVelocity = Math.abs(gameState.ball.body.velocity.x) +15;
+        let newXVelocity = Math.abs(gameState.ball.body.velocity.x) +30;
         //If the ball is to the left of the player, ensure the x velocity is negative
         if (gameState.ball.x < gameState.player.x) {
             gameState.ball.setVelocityX(-newXVelocity);
@@ -212,11 +212,9 @@ init(data) {
         gameState.gameOverText.setVisible(true);
         gameState.ball.disableBody(true, true);
     } else if (isWon()) {
-        // gameState.playerWonText.setVisible(true);
-        // gameState.player.disableBody(true, true);
         gameState.gameStarted = false;
-        this.scene.stop('Level3');
-        this.scene.start('Level4', {score: gameState.score});
+        this.scene.stop('Level4');
+        this.scene.start('Level5', {score: gameState.score});
     } else {
         //Logic for keys during normal gameplay
         
